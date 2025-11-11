@@ -1,0 +1,21 @@
+tunnel: YOUR_TUNNEL_ID_HERE
+credentials-file: /content/tunnel-credentials/YOUR_TUNNEL_ID_HERE.json
+
+ingress:
+  # Route colab.leonard-schneider.com to local Jupyter Server
+  - hostname: colab.leonard-schneider.com
+    service: http://localhost:8888
+    originRequest:
+      # Disable TLS verification for local connections
+      noTLSVerify: true
+      # Support WebSocket connections (required for Jupyter)
+      httpHostHeader: localhost:8888
+
+  # Catch-all rule (required)
+  - service: http_status:404
+
+# Logging
+loglevel: info
+
+# Metrics
+metrics: localhost:2000
