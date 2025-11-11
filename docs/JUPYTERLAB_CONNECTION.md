@@ -18,59 +18,36 @@ pip install jupyterlab jupyter-collaboration
 
 ## Connection Methods
 
-### Method 1: Via JupyterLab UI (Easiest)
+### Method 1: Via Command Line (Recommended)
 
-1. **Start your local JupyterLab**:
-   ```bash
-   jupyter lab
-   ```
-
-2. **Open in browser** (usually `http://localhost:8888`)
-
-3. **Add the remote server**:
-   - In JupyterLab, look for the server switcher (usually in the top-left or File menu)
-   - Some versions have "File → New Launcher → Add Server"
-   - Or use the Hub Control Panel if available
-
-4. **Enter server details**:
-   - **URL**: `https://colab.leonard-schneider.com`
-   - **Token**: Leave empty (our Colab server is configured without token)
-   - **Display Name**: `Google Colab` (or any name you prefer)
-
-5. **Connect**: Click "Add" or "Connect"
-
-### Method 2: Via Configuration File
-
-Create or edit `~/.jupyter/jupyter_server_config.py`:
-
-```python
-c = get_config()
-
-# Add remote server
-c.ServerApp.gateway_url = 'https://colab.leonard-schneider.com'
-
-# No token required
-c.ServerApp.token = ''
-c.ServerApp.password = ''
-```
-
-Then start JupyterLab:
-```bash
-jupyter lab --gateway-url=https://colab.leonard-schneider.com
-```
-
-### Method 3: Via Command Line
-
-Start JupyterLab directly connected to the remote server:
+Start JupyterLab directly connected to the remote Colab server:
 
 ```bash
 jupyter lab --gateway-url=https://colab.leonard-schneider.com
 ```
+
+This is the simplest method - JupyterLab will connect to Colab's Jupyter server instead of starting a local one.
 
 Or use the `JUPYTER_GATEWAY_URL` environment variable:
 
 ```bash
 export JUPYTER_GATEWAY_URL=https://colab.leonard-schneider.com
+jupyter lab
+```
+
+### Method 2: Via Configuration File
+
+Create or edit `~/.jupyter/jupyter_lab_config.py`:
+
+```python
+c = get_config()
+
+# Connect to remote Jupyter server
+c.ServerApp.gateway_url = 'https://colab.leonard-schneider.com'
+```
+
+Then start JupyterLab normally:
+```bash
 jupyter lab
 ```
 
